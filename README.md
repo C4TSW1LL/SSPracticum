@@ -1,1 +1,1 @@
-# SSPracticum
+# SimbirSoftPracticum
