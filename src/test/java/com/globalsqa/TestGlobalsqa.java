@@ -1,13 +1,17 @@
 package com.globalsqa;
 
 import config.TestData;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.Test;
-import pages.ListPage;
-import pages.ManagerPage;
+import pages.*;
 
+@Epic("Globalsqa")
 public class TestGlobalsqa extends TestsSetUp {
 
+
     @Test
+    @Feature("Создание клиента с валидными значениями")
     public void CreatingAClientWithValidValues() throws InterruptedException {
 
         new ManagerPage(driver)
@@ -19,6 +23,7 @@ public class TestGlobalsqa extends TestsSetUp {
                 .checkTextOnAlert(TestData.TEXT_ON_ALERT);
     }
     @Test
+    @Feature("Проверка сортировки клиентов по имени")
     public void SortedTableByFirstName() throws InterruptedException {
         new ListPage(driver)
                 .clickCustomersTable()
@@ -26,6 +31,7 @@ public class TestGlobalsqa extends TestsSetUp {
                 .checkCustomersFirstName();
     }
     @Test
+    @Feature("Проверка поиска клиентов по имени")
     public void CheckSearchByFirstName() throws InterruptedException {
         new ListPage(driver)
                 .clickCustomersTable()

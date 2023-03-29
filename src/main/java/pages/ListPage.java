@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,18 +32,21 @@ public class ListPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Выбор страницы со списком клиентов")
     public ListPage clickCustomersTable() throws InterruptedException {
         //waitUntilVisible(driver, CustomersTable);
         CustomersTable.click();
         return this;
     }
 
+    @Step("Нажатие на сортировку посредством имени")
     public ListPage clickFirstName() {
         FirstNameSortedButton.click();
         return this;
 
     }
 
+    @Step("Проверка корректности сортировки таблицы")
     public ListPage checkCustomersFirstName() {
 
         //Сбор First Name, Last Name, Post Code в один список
@@ -67,6 +71,7 @@ public class ListPage {
         return this;
     }
 
+    @Step("Проверка отображения всех пользователей по поиску")
     public ListPage checkBySearch(String testName) {
 
         /**
