@@ -37,5 +37,4 @@ public class TestGlobalsqa extends TestsSetUp {
                 .clickCustomersTable()
                 .checkBySearch(TestData.NAME_FOR_SEARCH);
     }
-
 }

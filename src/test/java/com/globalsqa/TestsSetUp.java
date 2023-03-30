@@ -38,7 +38,6 @@ public class TestsSetUp {
 
         //Ожидание появления элемента на экране
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
     }
     /**
      * Общие настройки тестов после выполнения
@@ -46,6 +45,7 @@ public class TestsSetUp {
     @After
     public void shutDown() {
         // Закрытие браузера
-        driver.close();
+        driver.quit();
+
     }
 }
