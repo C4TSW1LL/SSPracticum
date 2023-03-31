@@ -74,10 +74,10 @@ public class TestGlobalsqa extends TestsSetUp {
 
         managerPage.clickCustomersTable();
 
-        listPage.inputNameInSearchField(TestData.FIRSTNAME);
-
         int trueFirstNameCount = new ListPage(driver)
                 .collectAllCustomersInTable(TestData.FIRSTNAME);
+
+        listPage.inputNameInSearchField(TestData.FIRSTNAME);
 
         int FirstNameCount = new ListPage(driver)
                 .collectAllCustomersInTable(TestData.FIRSTNAME);
