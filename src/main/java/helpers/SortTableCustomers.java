@@ -14,22 +14,4 @@ public class SortTableCustomers {
         }
         return firstNameList;
     }
-
-    public static List<String> sortTableCustomersByLastName(List<WebElement> table) {
-
-        List<String> lastNameList = new ArrayList<>();
-        for (int i = 1; i < table.size(); i = i + 3) {
-            lastNameList.add(table.get(i).getText());
-        }
-        return lastNameList;
-    }
-
-    public static List<String> sortTableCustomersByPostCode(List<WebElement> table) {
-
-        List<String> postCodeList = new ArrayList<>();
-        for (int i = 2; i < table.size(); i = i + 3) {
-            postCodeList.add(table.get(i).getText());
-        }
-        return postCodeList;
-    }
 }

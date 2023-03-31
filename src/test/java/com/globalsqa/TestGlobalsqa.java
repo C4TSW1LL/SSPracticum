@@ -25,14 +25,15 @@ public class TestGlobalsqa extends TestsSetUp {
 
         int firstName = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
 
-        managerPage.clickAddCustomerTab();
+        managerPage.clickAddCustomerButton();
 
         String alertText = new AddCustPage(driver)
                 .inputFirstName(TestData.FIRSTNAME)
                 .inputLastName(TestData.LASTNAME)
                 .inputPostCode(TestData.POSTCODE)
                 .clickAddCustomerButton()
-                .getTextAlert();
+                .getTextAlertAndQuit();
+
 
         managerPage.clickCustomersTable();
 
@@ -64,7 +65,7 @@ public class TestGlobalsqa extends TestsSetUp {
         ManagerPage managerPage = new ManagerPage(driver);
         ListPage listPage = new ListPage(driver);
 
-        managerPage.clickAddCustomerTab();
+        managerPage.clickAddCustomerButton();
 
         addCustPage.inputFirstName(TestData.FIRSTNAME);
         addCustPage.inputLastName(TestData.LASTNAME);

@@ -51,10 +51,9 @@ public class AddCustPage {
         return this;
     }
     @Step("Получение текста в оповещении")
-    public String getTextAlert() {
+    public String getTextAlertAndQuit() {
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
-        alert.accept();
         return alertText;
     }
 
