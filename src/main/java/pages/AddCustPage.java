@@ -23,7 +23,7 @@ public class AddCustPage {
     @FindBy(xpath = "//button[contains(@type,'submit')]")
     private WebElement AddCustomerButton;
 
-    public AddCustPage (final WebDriver driver) {
+    public AddCustPage(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -45,11 +45,13 @@ public class AddCustPage {
         PostCodeField.sendKeys(postCode);
         return this;
     }
+
     @Step("Нажатие кнопки \"Добавить нового клиента\"")
     public AddCustPage clickAddCustomerButton() {
         AddCustomerButton.click();
         return this;
     }
+
     @Step("Получение текста в оповещении")
     public String getTextAlertAndQuit() {
         Alert alert = driver.switchTo().alert();

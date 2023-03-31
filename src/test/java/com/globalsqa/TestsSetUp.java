@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
 import java.time.Duration;
 
 public class TestsSetUp {
@@ -16,6 +17,7 @@ public class TestsSetUp {
     public ChromeOptions options;
 
     private final ConfigTests config = ConfigFactory.create(ConfigTests.class, System.getenv());
+
     @Before
     public void setUp() {
         // Установка драйвера GoogleChrome
@@ -39,6 +41,7 @@ public class TestsSetUp {
         //Ожидание появления элемента на экране
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
+
     /**
      * Общие настройки тестов после выполнения
      */

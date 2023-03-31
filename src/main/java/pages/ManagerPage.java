@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import static helpers.Waiters.waitUntilVisible;
 
 public class ManagerPage {
@@ -22,11 +23,10 @@ public class ManagerPage {
         PageFactory.initElements(driver, this);
     }
 
-     @Step("Выбор страницы создания нового клиента")
-     public ManagerPage clickAddCustomerButton() throws InterruptedException {
-         //waitUntilVisible(driver, AddCustomerTab);
-         AddCustomerButton.click();
-         return this;
+    @Step("Выбор страницы создания нового клиента")
+    public ManagerPage clickAddCustomerButton() throws InterruptedException {
+        AddCustomerButton.click();
+        return this;
     }
 
     @Step("Выбор страницы со списком клиентов")

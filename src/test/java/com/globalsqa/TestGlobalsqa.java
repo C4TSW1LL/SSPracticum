@@ -6,6 +6,7 @@ import io.qameta.allure.Feature;
 import org.junit.Assert;
 import org.junit.Test;
 import pages.*;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class TestGlobalsqa extends TestsSetUp {
 
     @Test
     @Feature("Создание клиента с валидными значениями")
-    public void CreatingAClientWithValidValues() throws InterruptedException {
+    public void creatingAClientWithValidValues() throws InterruptedException {
 
         ManagerPage managerPage = new ManagerPage(driver);
         ListPage listPage = new ListPage(driver);
@@ -45,7 +46,7 @@ public class TestGlobalsqa extends TestsSetUp {
 
     @Test
     @Feature("Проверка сортировки клиентов по имени")
-    public void SortedTableByFirstName() throws InterruptedException {
+    public void sortedTableByFirstName() throws InterruptedException {
 
         List<String> firstNameList = new ListPage(driver)
                 .clickCustomersTable()
@@ -59,7 +60,7 @@ public class TestGlobalsqa extends TestsSetUp {
 
     @Test
     @Feature("Проверка поиска клиентов по имени")
-    public void CheckSearchByFirstName() throws InterruptedException {
+    public void checkSearchByFirstName() throws InterruptedException {
 
         AddCustPage addCustPage = new AddCustPage(driver);
         ManagerPage managerPage = new ManagerPage(driver);
