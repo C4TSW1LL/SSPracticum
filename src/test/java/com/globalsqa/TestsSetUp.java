@@ -46,6 +46,5 @@ public class TestsSetUp {
     public void shutDown() {
         // Закрытие браузера
         driver.quit();
-
     }
 }

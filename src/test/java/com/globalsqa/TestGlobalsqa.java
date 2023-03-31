@@ -3,8 +3,12 @@ package com.globalsqa;
 import config.TestData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.junit.Assert;
 import org.junit.Test;
 import pages.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Epic("Globalsqa")
 public class TestGlobalsqa extends TestsSetUp {
@@ -14,27 +18,70 @@ public class TestGlobalsqa extends TestsSetUp {
     @Feature("Создание клиента с валидными значениями")
     public void CreatingAClientWithValidValues() throws InterruptedException {
 
-        new ManagerPage(driver)
-                .clickAddCustomerTab()
+        ManagerPage managerPage = new ManagerPage(driver);
+        ListPage listPage = new ListPage(driver);
+
+        managerPage.clickCustomersTable();
+
+        int firstName = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
+
+        managerPage.clickAddCustomerTab();
+
+        String alertText = new AddCustPage(driver)
                 .inputFirstName(TestData.FIRSTNAME)
                 .inputLastName(TestData.LASTNAME)
                 .inputPostCode(TestData.POSTCODE)
                 .clickAddCustomerButton()
-                .checkTextOnAlert(TestData.TEXT_ON_ALERT);
+                .getTextAlert();
+
+        managerPage.clickCustomersTable();
+
+        int firstNameCount = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
+
+        Assert.assertTrue(alertText.contains(TestData.TEXT_ON_ALERT));
+        Assert.assertNotEquals(firstNameCount, firstName);
     }
+
     @Test
     @Feature("Проверка сортировки клиентов по имени")
     public void SortedTableByFirstName() throws InterruptedException {
-        new ListPage(driver)
+
+        List<String> firstNameList = new ListPage(driver)
                 .clickCustomersTable()
                 .clickFirstName()
-                .checkCustomersFirstName();
+                .getCustomersFirstName();
+
+        Assert.assertEquals(firstNameList.stream()
+                .sorted((Comparator.reverseOrder()))
+                .collect(Collectors.toList()), firstNameList);
     }
+
     @Test
     @Feature("Проверка поиска клиентов по имени")
     public void CheckSearchByFirstName() throws InterruptedException {
-        new ListPage(driver)
-                .clickCustomersTable()
-                .checkBySearch(TestData.NAME_FOR_SEARCH);
+
+        AddCustPage addCustPage = new AddCustPage(driver);
+        ManagerPage managerPage = new ManagerPage(driver);
+        ListPage listPage = new ListPage(driver);
+
+        managerPage.clickAddCustomerTab();
+
+        addCustPage.inputFirstName(TestData.FIRSTNAME);
+        addCustPage.inputLastName(TestData.LASTNAME);
+        addCustPage.inputPostCode(TestData.POSTCODE);
+        addCustPage.clickAddCustomerButton();
+        addCustPage.clickAlertAccept();
+
+        managerPage.clickCustomersTable();
+
+        listPage.inputNameInSearchField(TestData.FIRSTNAME);
+
+        int trueFirstNameCount = new ListPage(driver)
+                .collectAllCustomersInTable(TestData.FIRSTNAME);
+
+        int FirstNameCount = new ListPage(driver)
+                .collectAllCustomersInTable(TestData.FIRSTNAME);
+
+        Assert.assertEquals(trueFirstNameCount, FirstNameCount);
     }
 }
