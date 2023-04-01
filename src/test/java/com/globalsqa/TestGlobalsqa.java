@@ -21,6 +21,7 @@ public class TestGlobalsqa extends TestsSetUp {
 
         ManagerPage managerPage = new ManagerPage(driver);
         ListPage listPage = new ListPage(driver);
+        AddCustPage addCustPage = new AddCustPage(driver);
 
         managerPage.clickCustomersTable();
 
@@ -28,13 +29,9 @@ public class TestGlobalsqa extends TestsSetUp {
 
         managerPage.clickAddCustomerButton();
 
-        String alertText = new AddCustPage(driver)
-                .inputFirstName(TestData.FIRSTNAME)
-                .inputLastName(TestData.LASTNAME)
-                .inputPostCode(TestData.POSTCODE)
-                .clickAddCustomerButton()
-                .getTextAlertAndQuit();
+        addCustPage.createNewCustomer(TestData.FIRSTNAME, TestData.LASTNAME, TestData.POSTCODE);
 
+        String alertText = addCustPage.getTextAlertAndAccept();
 
         managerPage.clickCustomersTable();
 
@@ -48,10 +45,12 @@ public class TestGlobalsqa extends TestsSetUp {
     @Feature("Проверка сортировки клиентов по имени")
     public void sortedTableByFirstName() throws InterruptedException {
 
-        List<String> firstNameList = new ListPage(driver)
-                .clickCustomersTable()
-                .clickFirstName()
-                .getCustomersFirstName();
+        ListPage listPage = new ListPage(driver);
+
+        listPage.clickCustomersTable();
+        listPage.clickFirstName();
+
+        List<String> firstNameList = listPage.getCustomersFirstName();
 
         Assert.assertEquals(firstNameList.stream()
                 .sorted((Comparator.reverseOrder()))
@@ -68,21 +67,16 @@ public class TestGlobalsqa extends TestsSetUp {
 
         managerPage.clickAddCustomerButton();
 
-        addCustPage.inputFirstName(TestData.FIRSTNAME);
-        addCustPage.inputLastName(TestData.LASTNAME);
-        addCustPage.inputPostCode(TestData.POSTCODE);
-        addCustPage.clickAddCustomerButton();
+        addCustPage.createNewCustomer(TestData.FIRSTNAME, TestData.LASTNAME, TestData.POSTCODE);
         addCustPage.clickAlertAccept();
 
         managerPage.clickCustomersTable();
 
-        int trueFirstNameCount = new ListPage(driver)
-                .collectAllCustomersInTable(TestData.FIRSTNAME);
+        int trueFirstNameCount = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
 
         listPage.inputNameInSearchField(TestData.FIRSTNAME);
 
-        int FirstNameCount = new ListPage(driver)
-                .collectAllCustomersInTable(TestData.FIRSTNAME);
+        int FirstNameCount = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
 
         Assert.assertEquals(trueFirstNameCount, FirstNameCount);
     }

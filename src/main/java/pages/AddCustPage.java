@@ -15,13 +15,13 @@ public class AddCustPage {
     private WebElement firstNameField;
 
     @FindBy(xpath = "//input[contains(@placeholder, \"Last Name\")]")
-    private WebElement LastNameField;
+    private WebElement lastNameField;
 
     @FindBy(xpath = "//input[contains(@placeholder, \"Post Code\")]")
-    private WebElement PostCodeField;
+    private WebElement postCodeField;
 
     @FindBy(xpath = "//button[contains(@type,'submit')]")
-    private WebElement AddCustomerButton;
+    private WebElement addCustomerButton;
 
     public AddCustPage(final WebDriver driver) {
         this.driver = driver;
@@ -36,26 +36,27 @@ public class AddCustPage {
 
     @Step("Ввод фамилии нового клиента")
     public AddCustPage inputLastName(String lastName) {
-        LastNameField.sendKeys(lastName);
+        lastNameField.sendKeys(lastName);
         return this;
     }
 
     @Step("Ввод почтового индекса нового клиента")
     public AddCustPage inputPostCode(String postCode) {
-        PostCodeField.sendKeys(postCode);
+        postCodeField.sendKeys(postCode);
         return this;
     }
 
     @Step("Нажатие кнопки \"Добавить нового клиента\"")
     public AddCustPage clickAddCustomerButton() {
-        AddCustomerButton.click();
+        addCustomerButton.click();
         return this;
     }
 
     @Step("Получение текста в оповещении")
-    public String getTextAlertAndQuit() {
+    public String getTextAlertAndAccept() {
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
+        alert.accept();
         return alertText;
     }
 
@@ -64,5 +65,16 @@ public class AddCustPage {
         Alert alert = driver.switchTo().alert();
         alert.accept();
         return this;
+    }
+
+    @Step("Создание нового клиента")
+    public AddCustPage createNewCustomer(String firstName, String lastName, String postCode) {
+        firstNameField.sendKeys(firstName);
+        lastNameField.sendKeys(lastName);
+        postCodeField.sendKeys(postCode);
+        addCustomerButton.click();
+        return this;
+
+
     }
 }

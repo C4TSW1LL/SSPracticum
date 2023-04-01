@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static helpers.Waiters.waitUntilVisible;
 
 public class ManagerPage {
 
@@ -31,7 +30,6 @@ public class ManagerPage {
 
     @Step("Выбор страницы со списком клиентов")
     public ManagerPage clickCustomersTable() throws InterruptedException {
-        waitUntilVisible(driver, customersTableButton);
         customersTableButton.click();
         return this;
     }
