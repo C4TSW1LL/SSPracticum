@@ -14,4 +14,13 @@ public class SortTableCustomers {
         }
         return firstNameList;
     }
+
+    public static List<String> getOneCustomersFromTable(List<WebElement> table) {
+
+        List<String> oneCustomerList = new ArrayList<>();
+        for (int i = 0; i <= 1; i = i + 1) {
+            oneCustomerList.add(table.get(i).getText());
+        }
+        return oneCustomerList;
+    }
 }

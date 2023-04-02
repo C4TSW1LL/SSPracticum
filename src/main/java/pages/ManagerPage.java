@@ -12,7 +12,7 @@ public class ManagerPage {
     private WebDriver driver;
 
     @FindBy(xpath = "//button[contains(@ng-click,'addCust()')]")
-    private WebElement AddCustomerButton;
+    private WebElement addCustomerButton;
 
     @FindBy(xpath = "//button[contains(@ng-class, 'btnClass3')]")
     private WebElement customersTableButton;
@@ -24,7 +24,7 @@ public class ManagerPage {
 
     @Step("Выбор страницы создания нового клиента")
     public ManagerPage clickAddCustomerButton() throws InterruptedException {
-        AddCustomerButton.click();
+        addCustomerButton.click();
         return this;
     }
 

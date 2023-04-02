@@ -23,22 +23,20 @@ public class TestGlobalsqa extends TestsSetUp {
         ListPage listPage = new ListPage(driver);
         AddCustPage addCustPage = new AddCustPage(driver);
 
-        managerPage.clickCustomersTable();
-
-        int firstName = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
-
         managerPage.clickAddCustomerButton();
 
         addCustPage.createNewCustomer(TestData.FIRSTNAME, TestData.LASTNAME, TestData.POSTCODE);
 
         String alertText = addCustPage.getTextAlertAndAccept();
 
-        managerPage.clickCustomersTable();
+        addCustPage.clickCustomersTable();
 
-        int firstNameCount = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
+        listPage.inputNameInSearchField(TestData.FIRSTNAME);
+
+        String customerName = listPage.getOneCustomerFromTable();
 
         Assert.assertTrue(alertText.contains(TestData.TEXT_ON_ALERT));
-        Assert.assertNotEquals(firstNameCount, firstName);
+        Assert.assertTrue((customerName.contains(TestData.FIRSTNAME)));
     }
 
     @Test

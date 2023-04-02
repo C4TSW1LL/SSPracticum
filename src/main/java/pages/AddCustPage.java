@@ -23,6 +23,9 @@ public class AddCustPage {
     @FindBy(xpath = "//button[contains(@type,'submit')]")
     private WebElement addCustomerButton;
 
+    @FindBy(xpath = "//button[contains(@ng-class, 'btnClass3')]")
+    private WebElement customersTableButton;
+
     public AddCustPage(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -74,7 +77,11 @@ public class AddCustPage {
         postCodeField.sendKeys(postCode);
         addCustomerButton.click();
         return this;
+    }
 
-
+    @Step("Выбор страницы со списком клиентов")
+    public AddCustPage clickCustomersTable() throws InterruptedException {
+        customersTableButton.click();
+        return this;
     }
 }

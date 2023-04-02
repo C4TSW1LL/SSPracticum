@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.*;
 
 import static helpers.SortTableCustomers.sortTableCustomersByFirstName;
+import static helpers.SortTableCustomers.getOneCustomersFromTable;
 
 public class ListPage {
 
@@ -23,7 +24,7 @@ public class ListPage {
     @FindBy(xpath = "//td[contains(@class, 'ng-binding')]")
     private WebElement customersData;
 
-    @FindBy(xpath = "//input[contains(@type, 'text')]")
+    @FindBy(xpath = "//input[contains(@placeholder, 'Search Customer')]")
     private WebElement searchField;
 
     @FindBy(xpath = "//td[contains(@class, 'ng-binding')]")
@@ -54,6 +55,12 @@ public class ListPage {
     @Step("Проверка отображения всех пользователей по поиску")
     public int collectAllCustomersInTable(String testName) {
         return Collections.frequency(sortTableCustomersByFirstName(tableElement), testName);
+    }
+
+    @Step("Проверка отображения всех пользователей по поиску")
+    public String getOneCustomerFromTable() {
+        String flpOfCustomer = String.join(", ", getOneCustomersFromTable(tableElement));
+        return flpOfCustomer;
     }
 
     @Step("Ввод имени в строку поиска")
