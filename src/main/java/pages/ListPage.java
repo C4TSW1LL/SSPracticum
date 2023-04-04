@@ -8,15 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.*;
 
-import static helpers.SortTableCustomers.sortTableCustomersByFirstName;
 import static helpers.SortTableCustomers.getOneCustomersFromTable;
 
 public class ListPage {
 
     private WebDriver driver;
-
-    @FindBy(xpath = "//button[contains(@ng-class, 'btnClass3')]")
-    private WebElement customersTableButton;
 
     @FindBy(xpath = "//a[contains(text(), 'First Name')]")
     private WebElement firstNameSortedButton;
@@ -28,44 +24,60 @@ public class ListPage {
     private WebElement searchField;
 
     @FindBy(xpath = "//td[contains(@class, 'ng-binding')]")
-    private List<WebElement> tableElement;
+    private List<WebElement> tableElements;
+
+    @FindBy(xpath = "//td[contains(@class, 'ng-binding')][1]")
+    private List<WebElement> tableElementName;
+
+    @FindBy(xpath = "//tr[contains(@class, 'ng-scope')]")
+    private List<WebElement> tableString;
+
 
     public ListPage(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    @Step("Выбор страницы со списком клиентов")
-    public ListPage clickCustomersTable() throws InterruptedException {
-        customersTableButton.click();
-        return this;
-    }
-
     @Step("Нажатие на сортировку посредством имени")
-    public ListPage clickFirstName() {
+    public void clickFirstName() {
         firstNameSortedButton.click();
-        return this;
     }
 
-    @Step("Проверка корректности сортировки таблицы")
+    @Step("Получение имен из таблицы с клиентами")
     public List<String> getCustomersFirstName() {
-        return sortTableCustomersByFirstName(tableElement);
+        List<String> customersName = new ArrayList<>();
+        for (WebElement name : tableElementName) {
+            customersName.add((name.getText()));
+        }
+        return customersName;
     }
 
-    @Step("Проверка отображения всех пользователей по поиску")
-    public int collectAllCustomersInTable(String testName) {
-        return Collections.frequency(sortTableCustomersByFirstName(tableElement), testName);
-    }
-
-    @Step("Проверка отображения всех пользователей по поиску")
+    @Step("Получение данных первого в списке пользователя")
     public String getOneCustomerFromTable() {
-        String flpOfCustomer = String.join(", ", getOneCustomersFromTable(tableElement));
+        String flpOfCustomer = String.join(", ", getOneCustomersFromTable(tableElements));
         return flpOfCustomer;
     }
 
+    //Rework
+    public List<String> getTableRowText(int rowNumber) {
+        List<String> tableRowText = new ArrayList<>();
+        for (int i = rowNumber - 1; i < tableString.size(); i++) {
+            tableRowText.add(tableString.get(i).getText());
+        }
+        return tableRowText;
+    }
+
     @Step("Ввод имени в строку поиска")
-    public ListPage inputNameInSearchField(String searchName) {
+    public void inputNameInSearchField(String searchName) {
         searchField.sendKeys(searchName);
-        return this;
+    }
+
+    @Step("Получение данных пользователей из таблицы")
+    public List<String> collectCostumersData() {
+        List<String> customersData = new ArrayList<>();
+        for (WebElement name : tableElements) {
+            customersData.add((name.getText()));
+        }
+        return customersData;
     }
 }

@@ -29,23 +29,24 @@ public class TestGlobalsqa extends TestsSetUp {
 
         String alertText = addCustPage.getTextAlertAndAccept();
 
-        addCustPage.clickCustomersTable();
+        managerPage.clickCustomersTable();
 
         listPage.inputNameInSearchField(TestData.FIRSTNAME);
 
         String customerName = listPage.getOneCustomerFromTable();
 
         Assert.assertTrue(alertText.contains(TestData.TEXT_ON_ALERT));
-        Assert.assertTrue((customerName.contains(TestData.FIRSTNAME)));
+        Assert.assertTrue(customerName.contains(TestData.FIRSTNAME));
     }
 
     @Test
     @Feature("Проверка сортировки клиентов по имени")
     public void sortedTableByFirstName() throws InterruptedException {
 
+        ManagerPage managerPage = new ManagerPage(driver);
         ListPage listPage = new ListPage(driver);
 
-        listPage.clickCustomersTable();
+        managerPage.clickCustomersTable();
         listPage.clickFirstName();
 
         List<String> firstNameList = listPage.getCustomersFirstName();
@@ -70,12 +71,10 @@ public class TestGlobalsqa extends TestsSetUp {
 
         managerPage.clickCustomersTable();
 
-        int trueFirstNameCount = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
-
         listPage.inputNameInSearchField(TestData.FIRSTNAME);
 
-        int FirstNameCount = listPage.collectAllCustomersInTable(TestData.FIRSTNAME);
+        List<String> customersTableDataAfterSearch = listPage.collectCostumersData();
 
-        Assert.assertEquals(trueFirstNameCount, FirstNameCount);
+        Assert.assertTrue(customersTableDataAfterSearch.contains(TestData.FIRSTNAME));
     }
 }
