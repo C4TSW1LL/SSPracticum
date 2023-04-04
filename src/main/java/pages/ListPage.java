@@ -52,18 +52,9 @@ public class ListPage {
         return customersName;
     }
 
-    @Step("Получение данных первого в списке пользователя")
-    public String getOneCustomerFromTable() {
-        String flpOfCustomer = String.join(", ", getOneCustomersFromTable(tableElements));
-        return flpOfCustomer;
-    }
-
-    //Rework
-    public List<String> getTableRowText(int rowNumber) {
-        List<String> tableRowText = new ArrayList<>();
-        for (int i = rowNumber - 1; i < tableString.size(); i++) {
-            tableRowText.add(tableString.get(i).getText());
-        }
+    @Step("Получение данных из строки")
+    public String getTableRowText(int rowNumber) {
+        String tableRowText = String.join("",tableString.get(rowNumber-1).getText());
         return tableRowText;
     }
 
