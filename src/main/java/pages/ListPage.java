@@ -8,8 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.*;
 
-import static helpers.SortTableCustomers.getOneCustomersFromTable;
-
 public class ListPage {
 
     private WebDriver driver;
@@ -52,19 +50,9 @@ public class ListPage {
         return customersName;
     }
 
-    @Step("Получение данных первого в списке пользователя")
-    public String getOneCustomerFromTable() {
-        String flpOfCustomer = String.join(", ", getOneCustomersFromTable(tableElements));
-        return flpOfCustomer;
-    }
-
-    //Rework
-    public List<String> getTableRowText(int rowNumber) {
-        List<String> tableRowText = new ArrayList<>();
-        for (int i = rowNumber - 1; i < tableString.size(); i++) {
-            tableRowText.add(tableString.get(i).getText());
-        }
-        return tableRowText;
+    @Step("Получение данных из выбранной строки")
+    public String getTableRowText(int rowNumber) {
+        return String.join(", ", tableString.get(rowNumber - 1).getText());
     }
 
     @Step("Ввод имени в строку поиска")
@@ -79,5 +67,10 @@ public class ListPage {
             customersData.add((name.getText()));
         }
         return customersData;
+    }
+
+    @Step("Получение размера таблицы")
+    public int tableSize() {
+        return tableString.size();
     }
 }
