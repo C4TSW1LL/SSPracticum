@@ -31,7 +31,10 @@ public class TestGlobalsqa extends TestsSetUp {
 
         managerPage.clickCustomersTable();
 
+        String textFromLine = listPage.getTableRowText(6);
+
         listPage.inputNameInSearchField(TestData.FIRSTNAME);
+
 
         String customerName = listPage.getTableRowText(1);
 
@@ -68,7 +71,7 @@ public class TestGlobalsqa extends TestsSetUp {
         managerPage.clickAddCustomerButton();
 
         addCustPage.createNewCustomer(TestData.FIRSTNAME, TestData.LASTNAME, TestData.POSTCODE);
-        addCustPage.clickAlertAccept();
+        String alertText = addCustPage.getTextAlertAndAccept();
 
         managerPage.clickCustomersTable();
 
@@ -76,6 +79,7 @@ public class TestGlobalsqa extends TestsSetUp {
 
         List<String> customersTableDataAfterSearch = listPage.collectCostumersData();
 
+        Assert.assertTrue(alertText.contains(TestData.TEXT_ON_ALERT));
         Assert.assertTrue(customersTableDataAfterSearch.contains(TestData.FIRSTNAME));
     }
 }
