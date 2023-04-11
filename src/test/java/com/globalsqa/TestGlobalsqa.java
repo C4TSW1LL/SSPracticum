@@ -35,10 +35,12 @@ public class TestGlobalsqa extends TestsSetUp {
 
         listPage.inputNameInSearchField(TestData.FIRSTNAME);
 
-        String textAfterSearch = listPage.getTableRowText(1);
+
+        String customerName = listPage.getTableRowText(1);
 
         Assert.assertTrue(alertText.contains(TestData.TEXT_ON_ALERT));
-        Assert.assertTrue(textFromLine.equals(textAfterSearch));
+        Assert.assertTrue(customerName.contains(TestData.FIRSTNAME));
+        Assert.assertEquals(1, listPage.tableSize());
     }
 
     @Test
